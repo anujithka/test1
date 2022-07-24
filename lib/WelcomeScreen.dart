@@ -1,94 +1,83 @@
 import 'package:flutter/material.dart';
-import 'sLogin.dart';
-import 'RegistrationScreen.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:test1/RoundedButton.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:eventmanagement/sLogin.dart';
+import 'package:eventmanagement/WelcomeScreen.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  static const String id = 'welcome_screen';
+  const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
-  _WelcomeScreenState createState() => _WelcomeScreenState();
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen>
-    with SingleTickerProviderStateMixin {
-  AnimationController? controller;
-  Animation? animation;
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller =
-        AnimationController(duration: Duration(seconds: 1), vsync: this);
-    animation = ColorTween(begin: Colors.blueGrey, end: Colors.white)
-        .animate(controller!);
-    controller!.forward();
-    controller!.addListener(() {
-      setState(() {});
-    });
-  }
-
-  @override
-  void dispose() {
-    controller!.dispose();
-    super.dispose();
-  }
-
+class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: animation!.value,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Hero(
-                  tag: 'logo',
-                  child: Container(
-                    child: Image.asset('images/logo.png'),
-                    height: 60.0,
-                  ),
+    return SafeArea(
+        child: Scaffold(
+      body: Container(
+        width: double.infinity,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                "WELCOME TO",
+                style: TextStyle(
+                  color: Colors.orangeAccent,
+                  fontSize: 37,
+                  fontWeight: FontWeight.w600,
                 ),
-                TypewriterAnimatedTextKit(
-                  text: ['Flash Chat'],
-                  textStyle: TextStyle(
-                    fontSize: 45.0,
-                    fontWeight: FontWeight.w900,
-                  ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                "College Event Management System",
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.blueGrey),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 15, right: 15),
+                child: Image(
+                  image: AssetImage("images/logo.png"),
+                  height: 250,
+                  width: 250,
                 ),
-              ],
-            ),
-            SizedBox(
-              height: 48.0,
-            ),
-            RoundedButton(
-              title: 'Log In',
-              colour: Colors.deepPurple,
-              onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => sLogin()));
-              },
-            ),
-            RoundedButton(
-              title: 'Register',
-              colour: Colors.deepPurple,
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => RegistrationScreen()));
-              },
-            ),
-          ],
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: 15,
+                  right: 15,
+                ),
+                child: ElevatedButton(
+                  child: Text("Get Started"),
+                  // minWidth: double.infinity,
+                  // color: Colors.white,
+                  // elevation: 5,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => sLogin()),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    );
+    ));
   }
 }

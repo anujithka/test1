@@ -1,14 +1,15 @@
+import 'package:eventmanagement/RegistrationScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:test1/cLogin.dart';
-import 'package:test1/sHome.dart';
-import 'package:test1/RoundedButton.dart';
-import 'package:test1/constants.dart';
+import 'package:eventmanagement/cLogin.dart';
+import 'package:eventmanagement/sHome.dart';
+import 'package:eventmanagement/RoundedButton.dart';
+import 'package:eventmanagement/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:test1/WelcomeScreen.dart';
+import 'package:eventmanagement/WelcomeScreen.dart';
 
 class sLogin extends StatefulWidget {
   static const String id = 'registration_screen';
@@ -78,14 +79,14 @@ class _sLoginState extends State<sLogin> {
                 height: 24.0,
               ),
               RoundedButton(
-                title: 'Login',
-                colour: Color.fromARGB(255, 97, 152, 247),
+                title: 'Student Login',
+                colour: Color(0xfffe8378),
                 onPressed: () async {
                   setState(() {
                     showSpinner = true;
                   });
                   try {
-                    final newUser = await _auth.createUserWithEmailAndPassword(
+                    final newUser = await _auth.signInWithEmailAndPassword(
                         email: email!, password: password!);
                     if (newUser != null) {
                       Navigator.push(context,
@@ -101,18 +102,58 @@ class _sLoginState extends State<sLogin> {
                 },
               ),
               SizedBox(
-                height: 25,
+                height: 1,
               ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: ((context) => cLogin())));
-                  },
-                  child: Text(
-                    'Communitty login',
-                    style: GoogleFonts.poppins(
-                        textStyle: TextStyle(fontSize: 18, color: Colors.blue)),
-                  )),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Don\'t have an account?',
+                        style: GoogleFonts.poppins(),
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) =>
+                                        RegistrationScreen())));
+                          },
+                          child: Text(
+                            'Sign up',
+                            style: GoogleFonts.poppins(
+                                textStyle: TextStyle(
+                              fontSize: 14,
+                              color: Colors.blue,
+                            )),
+                          )),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => cLogin())));
+                          },
+                          child: Text(
+                            'Communitty login',
+                            style: GoogleFonts.poppins(
+                                textStyle: TextStyle(
+                              fontSize: 18,
+                              color: Colors.blue,
+                            )),
+                          )),
+                    ],
+                  ),
+                ],
+              ),
             ],
           ),
         ),

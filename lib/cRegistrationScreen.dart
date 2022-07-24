@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:test1/cHome.dart';
-import 'package:test1/sHome.dart';
-import 'package:test1/RoundedButton.dart';
-import 'package:test1/constants.dart';
+import 'package:eventmanagement/cHome.dart';
+import 'package:eventmanagement/sHome.dart';
+import 'package:eventmanagement/RoundedButton.dart';
+import 'package:eventmanagement/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -113,7 +113,7 @@ class _cRegistrationScreenState extends State<cRegistrationScreen> {
               ),
               RoundedButton(
                 title: 'Register',
-                colour: Colors.blueAccent,
+                colour: Color(0xfffe8378),
                 onPressed: () async {
                   setState(() {
                     showSpinner = true;
@@ -121,13 +121,14 @@ class _cRegistrationScreenState extends State<cRegistrationScreen> {
                   try {
                     final newUser = await _auth.createUserWithEmailAndPassword(
                         email: cemail!, password: cpassword!);
-                 
-                    if (newUser != null) {
-                         await _csign.collection('success').add({
+
+                    await _csign.collection('signupc').add({
                       'cName': cname,
                       'cPhno': cphno,
                       'cDisc': cdisc,
                     });
+
+                    if (newUser != null) {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => cHome()));
                     }

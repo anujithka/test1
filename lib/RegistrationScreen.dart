@@ -1,7 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:test1/sHome.dart';
-import 'package:test1/RoundedButton.dart';
-import 'package:test1/constants.dart';
+import 'package:eventmanagement/sHome.dart';
+import 'package:eventmanagement/RoundedButton.dart';
+import 'package:eventmanagement/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -13,13 +14,14 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _auth = FirebaseAuth.instance;
+  final _sSignup = FirebaseFirestore.instance;
   bool showSpinner = false;
-  String? name;
-  String? ktureg;
-  String? branch;
-  String? email;
-  String? phno;
-  String? password;
+  String? sname;
+  String? sktureg;
+  String? sbranch;
+  String? semail;
+  String? sphno;
+  String? spassword;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  name = value;
+                  sname = value;
                 },
                 decoration:
                     kTextFieldDecoration.copyWith(hintText: 'Enter your name'),
@@ -61,7 +63,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  email = value;
+                  semail = value;
                 },
                 decoration:
                     kTextFieldDecoration.copyWith(hintText: 'Enter your email'),
@@ -73,7 +75,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 obscureText: true,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  password = value;
+                  spassword = value;
                 },
                 decoration: kTextFieldDecoration.copyWith(
                     hintText: 'Enter your password'),
@@ -82,10 +84,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 height: 8.0,
               ),
               TextField(
-                obscureText: true,
+                obscureText: false,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  ktureg = value;
+                  sktureg = value;
                 },
                 decoration:
                     kTextFieldDecoration.copyWith(hintText: 'KTU login'),
@@ -94,10 +96,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 height: 8.0,
               ),
               TextField(
-                obscureText: true,
+                obscureText: false,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  branch = value;
+                  sbranch = value;
                 },
                 decoration: kTextFieldDecoration.copyWith(
                     hintText: 'Enter your branch'),
@@ -107,10 +109,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
               TextField(
                 keyboardType: TextInputType.phone,
-                obscureText: true,
+                obscureText: false,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  phno = value;
+                  sphno = value;
                 },
                 decoration: kTextFieldDecoration.copyWith(
                     hintText: 'Enter your phone number'),
@@ -120,14 +122,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
               RoundedButton(
                 title: 'Register',
-                colour: Colors.blueAccent,
+                colour: Color(0xfffe8378),
                 onPressed: () async {
                   setState(() {
                     showSpinner = true;
                   });
                   try {
                     final newUser = await _auth.createUserWithEmailAndPassword(
-                        email: email!, password: password!);
+                        email: semail!, password: spassword!);
+
+                    await _sSignup.collection('signupc').add({
+                      'sname': sname,
+                      'phn': sphno,
+                      'ktulogin': sktureg,
+                      'branch': sbranch,
+                    });
+
                     if (newUser != null) {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => sHome()));

@@ -1,14 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:test1/cHome.dart';
-import 'package:test1/cRegistrationScreen.dart';
-import 'package:test1/sHome.dart';
-import 'package:test1/RoundedButton.dart';
-import 'package:test1/constants.dart';
+import 'package:eventmanagement/cHome.dart';
+import 'package:eventmanagement/cRegistrationScreen.dart';
+import 'package:eventmanagement/sHome.dart';
+import 'package:eventmanagement/RoundedButton.dart';
+import 'package:eventmanagement/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:test1/WelcomeScreen.dart';
+import 'package:eventmanagement/WelcomeScreen.dart';
 
 class cLogin extends StatefulWidget {
   static const String id = 'registration_screen';
@@ -59,8 +60,8 @@ class _cLoginState extends State<cLogin> {
                 onChanged: (value) {
                   email = value;
                 },
-                decoration:
-                    kTextFieldDecoration.copyWith(hintText: 'Enter your email'),
+                decoration: kcTextFieldDecoration.copyWith(
+                    hintText: 'Enter your email'),
               ),
               SizedBox(
                 height: 8.0,
@@ -71,7 +72,7 @@ class _cLoginState extends State<cLogin> {
                 onChanged: (value) {
                   password = value;
                 },
-                decoration: kTextFieldDecoration.copyWith(
+                decoration: kcTextFieldDecoration.copyWith(
                     hintText: 'Enter your password'),
               ),
               SizedBox(
@@ -79,13 +80,13 @@ class _cLoginState extends State<cLogin> {
               ),
               RoundedButton(
                 title: 'Login',
-                colour: Color.fromARGB(255, 97, 152, 247),
+                colour: Color.fromARGB(255, 110, 153, 247),
                 onPressed: () async {
                   setState(() {
                     showSpinner = true;
                   });
                   try {
-                    final newUser = await _auth.createUserWithEmailAndPassword(
+                    final newUser = await _auth.signInWithEmailAndPassword(
                         email: email!, password: password!);
                     if (newUser != null) {
                       Navigator.push(context,
@@ -103,15 +104,30 @@ class _cLoginState extends State<cLogin> {
               SizedBox(
                 height: 8.0,
               ),
-              RoundedButton(
-                  title: 'Sign up',
-                  colour: Colors.deepPurple,
-                  onPressed: () async {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => cRegistrationScreen()));
-                  }),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Don\'t have an account?',
+                    style: GoogleFonts.poppins(),
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => cRegistrationScreen())));
+                      },
+                      child: Text(
+                        'Sign up',
+                        style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                          fontSize: 14,
+                          color: Colors.blue,
+                        )),
+                      )),
+                ],
+              ),
             ],
           ),
         ),
