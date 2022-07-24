@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:test1/cHome.dart';
 import 'package:test1/sHome.dart';
@@ -6,22 +7,23 @@ import 'package:test1/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-class RegistrationScreen extends StatefulWidget {
+class cRegistrationScreen extends StatefulWidget {
   static const String id = 'registration_screen';
   @override
-  _RegistrationScreenState createState() => _RegistrationScreenState();
+  _cRegistrationScreenState createState() => _cRegistrationScreenState();
 }
 
-class _RegistrationScreenState extends State<RegistrationScreen> {
+class _cRegistrationScreenState extends State<cRegistrationScreen> {
   final _auth = FirebaseAuth.instance;
+  final _csign = FirebaseFirestore.instance;
   bool showSpinner = false;
   String? cname;
   //String? ktureg;
   //String? branch;
-  String? email;
-  String? phno;
-  String? password;
-  String? disc;
+  String? cemail;
+  String? cphno;
+  String? cpassword;
+  String? cdisc;
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +62,36 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 height: 8.0,
               ),
               TextField(
+                keyboardType: TextInputType.phone,
+                obscureText: true,
+                textAlign: TextAlign.center,
+                onChanged: (value) {
+                  cphno = value;
+                },
+                decoration: kTextFieldDecoration.copyWith(
+                    hintText: 'Enter your phone number'),
+              ),
+              SizedBox(
+                height: 8.0,
+              ),
+              TextField(
+                keyboardType: TextInputType.text,
+                obscureText: true,
+                textAlign: TextAlign.center,
+                onChanged: (value) {
+                  cdisc = value;
+                },
+                decoration: kTextFieldDecoration.copyWith(
+                    hintText: 'Enter discription'),
+              ),
+              SizedBox(
+                height: 8.0,
+              ),
+              TextField(
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  email = value;
+                  cemail = value;
                 },
                 decoration:
                     kTextFieldDecoration.copyWith(hintText: 'Enter your email'),
@@ -75,36 +103,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 obscureText: true,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  password = value;
+                  cpassword = value;
                 },
                 decoration: kTextFieldDecoration.copyWith(
                     hintText: 'Enter your password'),
-              ),
-              SizedBox(
-                height: 8.0,
-              ),
-              TextField(
-                keyboardType: TextInputType.phone,
-                obscureText: true,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  phno = value;
-                },
-                decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'Enter your phone number'),
-              ),
-              SizedBox(
-                height: 8.0,
-              ),
-              TextField(
-                keyboardType: TextInputType.phone,
-                obscureText: true,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  phno = value;
-                },
-                decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'Enter discription'),
               ),
               SizedBox(
                 height: 24.0,
@@ -118,8 +120,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   });
                   try {
                     final newUser = await _auth.createUserWithEmailAndPassword(
-                        email: email!, password: password!);
+                        email: cemail!, password: cpassword!);
+                 
                     if (newUser != null) {
+                         await _csign.collection('success').add({
+                      'cName': cname,
+                      'cPhno': cphno,
+                      'cDisc': cdisc,
+                    });
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => cHome()));
                     }

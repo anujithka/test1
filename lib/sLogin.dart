@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:test1/cLogin.dart';
 import 'package:test1/sHome.dart';
 import 'package:test1/RoundedButton.dart';
 import 'package:test1/constants.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -86,10 +88,8 @@ class _sLoginState extends State<sLogin> {
                     final newUser = await _auth.createUserWithEmailAndPassword(
                         email: email!, password: password!);
                     if (newUser != null) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => sHome()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => sHome()));
                     }
 
                     setState(() {
@@ -100,6 +100,19 @@ class _sLoginState extends State<sLogin> {
                   }
                 },
               ),
+              SizedBox(
+                height: 25,
+              ),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: ((context) => cLogin())));
+                  },
+                  child: Text(
+                    'Communitty login',
+                    style: GoogleFonts.poppins(
+                        textStyle: TextStyle(fontSize: 18, color: Colors.blue)),
+                  )),
             ],
           ),
         ),

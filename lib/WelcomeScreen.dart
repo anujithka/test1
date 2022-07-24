@@ -3,6 +3,7 @@ import 'sLogin.dart';
 import 'RegistrationScreen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:test1/RoundedButton.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';
@@ -69,7 +70,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             ),
             RoundedButton(
               title: 'Log In',
-              colour: Colors.lightBlueAccent,
+              colour: Colors.deepPurple,
               onPressed: () {
                 Navigator.push(
                     context, MaterialPageRoute(builder: (context) => sLogin()));
@@ -77,7 +78,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             ),
             RoundedButton(
               title: 'Register',
-              colour: Colors.blueAccent,
+              colour: Colors.deepPurple,
               onPressed: () {
                 Navigator.push(
                     context,

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:test1/cHome.dart';
+import 'package:test1/cRegistrationScreen.dart';
 import 'package:test1/sHome.dart';
 import 'package:test1/RoundedButton.dart';
 import 'package:test1/constants.dart';
@@ -87,10 +88,8 @@ class _cLoginState extends State<cLogin> {
                     final newUser = await _auth.createUserWithEmailAndPassword(
                         email: email!, password: password!);
                     if (newUser != null) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => cHome()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => cHome()));
                     }
 
                     setState(() {
@@ -101,6 +100,18 @@ class _cLoginState extends State<cLogin> {
                   }
                 },
               ),
+              SizedBox(
+                height: 8.0,
+              ),
+              RoundedButton(
+                  title: 'Sign up',
+                  colour: Colors.deepPurple,
+                  onPressed: () async {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => cRegistrationScreen()));
+                  }),
             ],
           ),
         ),
