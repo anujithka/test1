@@ -30,27 +30,38 @@ class _sHomeState extends State<sHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(25.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Hi!  aaaa',
-                style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                        color: Colors.blueGrey,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold)),
-              ),
-              const CircleAvatar(
-                radius: 27,
-                backgroundImage: AssetImage('assets/logo_finca.png'),
-              ),
-            ],
+        child: Column(children: [
+          Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Hi!  aaaa',
+                  style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold)),
+                ),
+                const CircleAvatar(
+                  radius: 27,
+                  backgroundImage: AssetImage('assets/logo_finca.png'),
+                ),
+              ],
+          
+          
+            ),
           ),
-        ),
+
+        ] ,
       ),
+
+  
+
+      ),
+
+      //
     );
   }
 }

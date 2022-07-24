@@ -91,7 +91,7 @@ class _sLoginState extends State<sLogin> {
                     if (newUser != null) {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => sHome()));
-                    }
+                    } else {}
 
                     setState(() {
                       showSpinner = false;
