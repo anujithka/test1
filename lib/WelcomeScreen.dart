@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:eventmanagement/sLogin.dart';
+import 'package:eventmanagement/studentScreens/sLogin.dart';
 import 'package:eventmanagement/WelcomeScreen.dart';
 
 class WelcomeScreen extends StatefulWidget {

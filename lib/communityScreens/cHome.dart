@@ -1,5 +1,5 @@
 import 'package:eventmanagement/RoundedButton.dart';
-import 'package:eventmanagement/eventCreate.dart';
+import 'package:eventmanagement/communityScreens/eventCreate.dart';
 import 'package:flutter/material.dart';
 import 'package:eventmanagement/constants.dart';
 import 'package:firebase_core/firebase_core.dart';

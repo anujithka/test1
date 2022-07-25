@@ -1,23 +1,23 @@
+import 'package:eventmanagement/studentScreens/RegistrationScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:eventmanagement/cHome.dart';
-import 'package:eventmanagement/cRegistrationScreen.dart';
-import 'package:eventmanagement/sHome.dart';
+import 'package:eventmanagement/communityScreens/cLogin.dart';
+import 'package:eventmanagement/studentScreens/sHome.dart';
 import 'package:eventmanagement/RoundedButton.dart';
 import 'package:eventmanagement/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:eventmanagement/WelcomeScreen.dart';
 
-class cLogin extends StatefulWidget {
+class sLogin extends StatefulWidget {
   static const String id = 'registration_screen';
   @override
-  _cLoginState createState() => _cLoginState();
+  _sLoginState createState() => _sLoginState();
 }
 
-class _cLoginState extends State<cLogin> {
+class _sLoginState extends State<sLogin> {
   get firebase => null;
 
   Future<FirebaseApp> _initializeFirebase() async {
@@ -60,8 +60,8 @@ class _cLoginState extends State<cLogin> {
                 onChanged: (value) {
                   email = value;
                 },
-                decoration: kcTextFieldDecoration.copyWith(
-                    hintText: 'Enter your email'),
+                decoration:
+                    kTextFieldDecoration.copyWith(hintText: 'Enter your email'),
               ),
               SizedBox(
                 height: 8.0,
@@ -72,15 +72,15 @@ class _cLoginState extends State<cLogin> {
                 onChanged: (value) {
                   password = value;
                 },
-                decoration: kcTextFieldDecoration.copyWith(
+                decoration: kTextFieldDecoration.copyWith(
                     hintText: 'Enter your password'),
               ),
               SizedBox(
                 height: 24.0,
               ),
               RoundedButton(
-                title: 'Login',
-                colour: Color.fromARGB(255, 110, 153, 247),
+                title: 'Student Login',
+                colour: Color(0xfffe8378),
                 onPressed: () async {
                   setState(() {
                     showSpinner = true;
@@ -90,8 +90,8 @@ class _cLoginState extends State<cLogin> {
                         email: email!, password: password!);
                     if (newUser != null) {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => cHome()));
-                    }
+                          MaterialPageRoute(builder: (context) => sHome()));
+                    } else {}
 
                     setState(() {
                       showSpinner = false;
@@ -102,30 +102,56 @@ class _cLoginState extends State<cLogin> {
                 },
               ),
               SizedBox(
-                height: 8.0,
+                height: 1,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(
-                    'Don\'t have an account?',
-                    style: GoogleFonts.poppins(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Don\'t have an account?',
+                        style: GoogleFonts.poppins(),
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) =>
+                                        RegistrationScreen())));
+                          },
+                          child: Text(
+                            'Sign up',
+                            style: GoogleFonts.poppins(
+                                textStyle: TextStyle(
+                              fontSize: 14,
+                              color: Colors.blue,
+                            )),
+                          )),
+                    ],
                   ),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: ((context) => cRegistrationScreen())));
-                      },
-                      child: Text(
-                        'Sign up',
-                        style: GoogleFonts.poppins(
-                            textStyle: TextStyle(
-                          fontSize: 14,
-                          color: Colors.blue,
-                        )),
-                      )),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => cLogin())));
+                          },
+                          child: Text(
+                            'Communitty login',
+                            style: GoogleFonts.poppins(
+                                textStyle: TextStyle(
+                              fontSize: 18,
+                              color: Colors.blue,
+                            )),
+                          )),
+                    ],
+                  ),
                 ],
               ),
             ],

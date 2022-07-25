@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:eventmanagement/cHome.dart';
-import 'package:eventmanagement/sHome.dart';
+import 'package:eventmanagement/communityScreens/cHome.dart';
+import 'package:eventmanagement/studentScreens/sHome.dart';
 import 'package:eventmanagement/RoundedButton.dart';
 import 'package:eventmanagement/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';

@@ -1,29 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:eventmanagement/cHome.dart';
-import 'package:eventmanagement/sHome.dart';
+import 'package:eventmanagement/studentScreens/sHome.dart';
 import 'package:eventmanagement/RoundedButton.dart';
 import 'package:eventmanagement/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-class cRegistrationScreen extends StatefulWidget {
+class RegistrationScreen extends StatefulWidget {
   static const String id = 'registration_screen';
   @override
-  _cRegistrationScreenState createState() => _cRegistrationScreenState();
+  _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
-class _cRegistrationScreenState extends State<cRegistrationScreen> {
+class _RegistrationScreenState extends State<RegistrationScreen> {
   final _auth = FirebaseAuth.instance;
-  final _csign = FirebaseFirestore.instance;
+  final _sSignup = FirebaseFirestore.instance;
   bool showSpinner = false;
-  String? cname;
-  //String? ktureg;
-  //String? branch;
-  String? cemail;
-  String? cphno;
-  String? cpassword;
-  String? cdisc;
+  String? sname;
+  String? sktureg;
+  String? sbranch;
+  String? semail;
+  String? sphno;
+  String? spassword;
 
   @override
   Widget build(BuildContext context) {
@@ -53,36 +51,10 @@ class _cRegistrationScreenState extends State<cRegistrationScreen> {
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  cname = value;
+                  sname = value;
                 },
-                decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'Enter communitty name'),
-              ),
-              SizedBox(
-                height: 8.0,
-              ),
-              TextField(
-                keyboardType: TextInputType.phone,
-                obscureText: true,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  cphno = value;
-                },
-                decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'Enter your phone number'),
-              ),
-              SizedBox(
-                height: 8.0,
-              ),
-              TextField(
-                keyboardType: TextInputType.text,
-                obscureText: true,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  cdisc = value;
-                },
-                decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'Enter discription'),
+                decoration:
+                    kTextFieldDecoration.copyWith(hintText: 'Enter your name'),
               ),
               SizedBox(
                 height: 8.0,
@@ -91,7 +63,7 @@ class _cRegistrationScreenState extends State<cRegistrationScreen> {
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  cemail = value;
+                  semail = value;
                 },
                 decoration:
                     kTextFieldDecoration.copyWith(hintText: 'Enter your email'),
@@ -103,10 +75,47 @@ class _cRegistrationScreenState extends State<cRegistrationScreen> {
                 obscureText: true,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  cpassword = value;
+                  spassword = value;
                 },
                 decoration: kTextFieldDecoration.copyWith(
                     hintText: 'Enter your password'),
+              ),
+              SizedBox(
+                height: 8.0,
+              ),
+              TextField(
+                obscureText: false,
+                textAlign: TextAlign.center,
+                onChanged: (value) {
+                  sktureg = value;
+                },
+                decoration:
+                    kTextFieldDecoration.copyWith(hintText: 'KTU login'),
+              ),
+              SizedBox(
+                height: 8.0,
+              ),
+              TextField(
+                obscureText: false,
+                textAlign: TextAlign.center,
+                onChanged: (value) {
+                  sbranch = value;
+                },
+                decoration: kTextFieldDecoration.copyWith(
+                    hintText: 'Enter your branch'),
+              ),
+              SizedBox(
+                height: 8.0,
+              ),
+              TextField(
+                keyboardType: TextInputType.phone,
+                obscureText: false,
+                textAlign: TextAlign.center,
+                onChanged: (value) {
+                  sphno = value;
+                },
+                decoration: kTextFieldDecoration.copyWith(
+                    hintText: 'Enter your phone number'),
               ),
               SizedBox(
                 height: 24.0,
@@ -120,17 +129,18 @@ class _cRegistrationScreenState extends State<cRegistrationScreen> {
                   });
                   try {
                     final newUser = await _auth.createUserWithEmailAndPassword(
-                        email: cemail!, password: cpassword!);
+                        email: semail!, password: spassword!);
 
-                    await _csign.collection('signupc').add({
-                      'cName': cname,
-                      'cPhno': cphno,
-                      'cDisc': cdisc,
+                    await _sSignup.collection('signupc').add({
+                      'sname': sname,
+                      'phn': sphno,
+                      'ktulogin': sktureg,
+                      'branch': sbranch,
                     });
 
                     if (newUser != null) {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => cHome()));
+                          MaterialPageRoute(builder: (context) => sHome()));
                     }
 
                     setState(() {

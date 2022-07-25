@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:eventmanagement/WelcomeScreen.dart';
-import 'package:eventmanagement/sLogin.dart';
-import 'package:eventmanagement/RegistrationScreen.dart';
+import 'package:eventmanagement/studentScreens/sLogin.dart';
+import 'package:eventmanagement/studentScreens/RegistrationScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
