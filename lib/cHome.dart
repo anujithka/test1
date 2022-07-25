@@ -33,7 +33,6 @@ class _cHomeState extends State<cHome> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => eventCreate()));
         },
@@ -61,6 +60,10 @@ class _cHomeState extends State<cHome> {
             SizedBox(
               height: 24,
             ),
+            RoundedButton(
+                title: 'Log out',
+                colour: Color(0xff484bf2),
+                onPressed: () => FirebaseAuth.instance.signOut())
           ],
         ),
       ),
